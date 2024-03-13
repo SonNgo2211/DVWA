@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     // Khởi tạo kết nối SSH
-                    sshagent(credentials: ['masterNode']) {
+                    sshagent(['masterNode']) {
                         
                         sh 'ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 "docker network create --driver overlay web-net"'
 
