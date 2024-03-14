@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
 
-                    def constraint = "'node.role==worker'"
+                    def constraints = "'node.role==worker'"
 
                     def sshExecute = {command ->
                         return sh(script: "ssh -o StrictHostKeyChecking=no misa@10.1.36.161 '${command}'", returnStatus: true)
