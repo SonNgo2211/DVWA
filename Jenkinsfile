@@ -38,20 +38,39 @@ pipeline {
         stage('Deploy Services') {
             steps {
                 script {
-                    // Khởi tạo kết nối SSH
-                    sshagent(['masterNode']) {
-                        
-                        sh 'ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 "docker network create --driver overlay web-net"'
 
-                        // Triển khai dịch vụ MariaDB cho DVWA
-                        sh 'ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 "docker service create --name dvwa_db --replicas 1 --network web-net --publish published=3306,target=3306 whackers/dvwa_db:latest"'
-                        
-                        // Triển khai dịch vụ DVWA web
-                        sh 'ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 "docker service create --name dvwa_web  --replicas 1 --network web-net --publish published=80,target=80 whackers/dvwa_web:latest"'
-
-                        // Triển khai dịch vụ nginx
-                        sh 'ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 "docker service create --name nginx_proxy --replicas 1 --network web-net --publish published=80,target=4321 whackers/nginx-custom:latest"'
+                    def sshExecute = {command ->
+                        return sh(script: "ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 '${command}'", returnStatus: true)
                     }
+                    
+                    def isServiceExists = {serviceName ->
+                        return sshExecute("docker service ls --format '{{.Name}}' | grep '^${serviceName}\$'") == 0
+                    }
+
+                    def updateService = {serviceName, image, replicas ->
+                        sshExecute("docker service update --image ${image} --replicas ${replicas} ${serviceName}")
+                    }
+
+                    def createService = {serviceName, image, sport, dport, replicas, network ->
+                        sshExecute("docker service create --name ${serviceName} --network ${network} --publish ${sport}:${dport} --replicas ${replicas} ${image}")
+                    }
+
+                    def sshExecuteService = {serviceName, image, sport, dport, replicas, network ->
+                        if (isServiceExists(serviceName)) {
+                            updateService(serviceName, image, replicas)
+                        } else {
+                            createService(serviceName, image, sport, dport, replicas, network)
+                        }
+                    }
+
+                    sshagent(credentials: ['masterNode']) {
+
+                        sshExecuteService('dvwa_db', 'whackers/dvwa_db:latest', '3306', '3306', '1', 'web-net')
+                        sshExecuteService('dvwa_web', 'whackers/dvwa_web:latest', '8000', '80', '1', 'web-net')
+                        sshExecuteService('nginx', 'whackers/nginx-custom:latest', '4321', '4321', '1', 'web-net')
+
+                    }
+
                 }
             }
         }
