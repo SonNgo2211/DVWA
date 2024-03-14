@@ -50,7 +50,7 @@ pipeline {
                     }
 
                     def updateService = {serviceName, image, replicas ->
-                        sshExecute("docker service update --image ${image} --replicas ${replicas} --constraint ${constraints} ${serviceName}")
+                        sshExecute("docker service update --image ${image} --replicas ${replicas} ${serviceName}")
                     }
 
                     def createService = {serviceName, image, sport, dport, replicas, network ->
