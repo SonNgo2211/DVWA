@@ -8,7 +8,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY custom.conf /etc/nginx/conf.d/default.conf
 
 # EXPOSE cổng mà Nginx sẽ lắng nghe
-EXPOSE 4321
+EXPOSE 80
 
 # Khởi động lại Nginx sau khi thay đổi cấu hình
 CMD ["sh", "-c", "nginx -g 'daemon off;'"]
