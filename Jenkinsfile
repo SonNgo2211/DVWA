@@ -40,7 +40,7 @@ pipeline {
                 script {
 
                     def sshExecute = {command ->
-                        return sh(script: "ssh -o StrictHostKeyChecking=no sonngo@10.1.38.190 '${command}'", returnStatus: true)
+                        return sh(script: "ssh -o StrictHostKeyChecking=no misa@10.1.36.161 '${command}'", returnStatus: true)
                     }
                     
                     def isServiceExists = {serviceName ->
@@ -63,7 +63,7 @@ pipeline {
                         }
                     }
 
-                    sshagent(credentials: ['masterNode']) {
+                    sshagent(credentials: ['dvwatest']) {
 
                         sshExecuteService('dvwa_db', 'whackers/dvwa_db:latest', '3306', '3306', '1', 'web-net')
                         sshExecuteService('dvwa_web', 'whackers/dvwa_web:latest', '8000', '80', '1', 'web-net')
