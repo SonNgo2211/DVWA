@@ -39,6 +39,8 @@ pipeline {
             steps {
                 script {
 
+                    def constraint = "'node.role==worker'"
+
                     def sshExecute = {command ->
                         return sh(script: "ssh -o StrictHostKeyChecking=no misa@10.1.36.161 '${command}'", returnStatus: true)
                     }
@@ -48,11 +50,11 @@ pipeline {
                     }
 
                     def updateService = {serviceName, image, replicas ->
-                        sshExecute("docker service update --image ${image} --replicas ${replicas} ${serviceName}")
+                        sshExecute("docker service update --image ${image} --replicas ${replicas} --constraint ${constraints} ${serviceName}")
                     }
 
                     def createService = {serviceName, image, sport, dport, replicas, network ->
-                        sshExecute("docker service create --name ${serviceName} --network ${network} --publish ${sport}:${dport} --replicas ${replicas} ${image}")
+                        sshExecute("docker service create --name ${serviceName} --network ${network} --publish ${sport}:${dport} --replicas ${replicas} --constraint ${constraints} ${image}")
                     }
 
                     def sshExecuteService = {serviceName, image, sport, dport, replicas, network ->
