@@ -42,7 +42,7 @@ pipeline {
                     def constraints = "'node.role==worker'"
 
                     def sshExecute = {command ->
-                        return sh(script: "ssh -o StrictHostKeyChecking=no misa@10.1.36.161 '${command}'", returnStatus: true)
+                        return sh(script: "ssh -o StrictHostKeyChecking=no root@10.1.36.161 '${command}'", returnStatus: true)
                     }
                     
                     def isServiceExists = {serviceName ->

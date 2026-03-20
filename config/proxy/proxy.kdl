@@ -1,0 +1,106 @@
+// Zentinel Proxy Configuration for Docker Benchmarking
+// Simple config for performance testing
+
+system {
+    worker-threads 0  // auto-detect CPU cores
+    max-connections 10000
+    graceful-shutdown-timeout-secs 30
+}
+
+listeners {
+      listener "http" {
+          address "0.0.0.0:8080"
+          protocol "http"
+      }
+
+      listener "https" {
+          address "0.0.0.0:8443"
+          protocol "https"
+          tls {
+              cert-file "/etc/zentinel/tls/misa.crt"
+              key-file "/etc/zentinel/tls/misa.key"
+          }
+      }
+
+      listener "h2" {
+          address "0.0.0.0:51000"
+          protocol "h2"
+          max-concurrent-streams 100
+          tls {
+              cert-file "/etc/zentinel/tls/misa.crt"
+              key-file "/etc/zentinel/tls/misa.key"
+          }
+      }
+}
+
+upstreams {
+
+    upstream "server" {
+        target "dvwa-web:80" weight=1
+        load-balancing "round_robin"
+    }
+}
+
+// Simple routes for benchmarking (no agents/filters for pure proxy performance)
+routes {
+    // Health check endpoint
+    route "health" {
+        priority "low"
+        matches {
+            path "/health"
+        }
+        builtin-handler "health"
+        policies {
+            timeout-secs 5
+            failure-mode "open"
+        }
+    }
+
+    // Main route - direct proxy to backend
+    route "default" {
+        priority "low"
+        matches {
+            path-prefix "/"
+        }
+        upstream "server"
+        policies {
+            timeout-secs 30
+            failure-mode "open"
+        }
+        filters "waf"
+    }
+
+}
+
+
+limits {
+    max-header-size-bytes 8192
+    max-header-count 100
+    max-body-size-bytes 10485760
+}
+
+filters {
+    filter "waf" {
+        type "agent"
+        agent "waf"
+        phase "request"
+        failure-mode "open"
+    }
+}
+
+agents {
+    agent "waf" type="waf" {
+        grpc address="http://waf:9094"
+        events "request_headers" "request_body"
+        timeout-ms 200
+        failure-mode "open"
+        request-body-mode "buffer"
+        circuit-breaker {
+            failure-threshold 10
+            timeout-seconds 60
+        }
+        config {
+            paranoia-level 1
+        }
+    }
+}
