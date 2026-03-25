@@ -1,0 +1,985 @@
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+#0 building with "default" instance using docker driver
+
+#1 [zentinelsec internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.01kB done
+#1 DONE 0.1s
+
+#2 [zentinelsec] resolve image config for docker-image://docker.io/docker/dockerfile:1.4
+#2 DONE 1.2s
+
+#3 [zentinelsec] docker-image://docker.io/docker/dockerfile:1.4@sha256:9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc
+#3 CACHED
+
+#4 [zentinelsec internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.1s
+
+#5 [zentinelsec internal] load metadata for gcr.io/distroless/cc-debian12:nonroot
+#5 DONE 0.6s
+
+#6 [zentinelsec internal] load metadata for docker.io/library/rust:1.88-slim-bookworm
+#6 DONE 0.8s
+
+#7 [zentinelsec builder 1/8] FROM docker.io/library/rust:1.88-slim-bookworm@sha256:38bc5a86d998772d4aec2348656ed21438d20fcdce2795b56ca434cf21430d89
+#7 DONE 0.0s
+
+#8 [zentinelsec stage-1 1/2] FROM gcr.io/distroless/cc-debian12:nonroot@sha256:7e5b8df2f4d36f5599ef4ab856d7d444922531709becb03f3368c6d797d0a5eb
+#8 DONE 0.0s
+
+#9 [zentinelsec internal] load build context
+#9 transferring context: 4.70kB done
+#9 DONE 0.0s
+
+#10 [zentinelsec builder 3/8] WORKDIR /app
+#10 CACHED
+
+#11 [zentinelsec builder 4/8] COPY zentinelsec-agent/Cargo.toml zentinelsec-agent/
+#11 CACHED
+
+#12 [zentinelsec builder 5/8] COPY zentinel-modsec/zentinel-modsec-main /app/zentinel-modsec/zentinel-modsec-main
+#12 CACHED
+
+#13 [zentinelsec builder 6/8] COPY zentinelsec-agent/src zentinelsec-agent/src
+#13 CACHED
+
+#14 [zentinelsec builder 2/8] RUN apt-get update &&     apt-get install -y --no-install-recommends         pkg-config         libssl-dev         protobuf-compiler         cmake         build-essential     && rm -rf /var/lib/apt/lists/*
+#14 CACHED
+
+#15 [zentinelsec builder 7/8] WORKDIR /app/zentinelsec-agent
+#15 CACHED
+
+#16 [zentinelsec builder 8/8] RUN cargo build --release
+#16 0.486     Updating crates.io index
+#16 6.169      Locking 328 packages to latest compatible versions
+#16 6.180       Adding generic-array v0.14.7 (available: v0.14.9)
+#16 6.186       Adding matchit v0.8.4 (available: v0.8.6)
+#16 6.229       Adding thiserror v1.0.69 (available: v2.0.18)
+#16 6.244       Adding zentinel-agent-protocol v0.5.13 (available: v0.6.4)
+#16 6.244       Adding zentinel-common v0.5.13 (available: v0.6.4)
+#16 6.262  Downloading crates ...
+#16 6.549   Downloaded atomic-waker v1.1.2
+#16 6.621   Downloaded anstyle-parse v1.0.0
+#16 6.636   Downloaded cfg-if v1.0.4
+#16 6.641   Downloaded block-buffer v0.10.4
+#16 6.645   Downloaded dunce v1.0.5
+#16 6.667   Downloaded utf8parse v0.2.2
+#16 6.670   Downloaded futures-io v0.3.32
+#16 6.682   Downloaded anstyle-query v1.1.5
+#16 6.686   Downloaded autocfg v1.5.0
+#16 6.692   Downloaded clap_lex v1.1.0
+#16 6.714   Downloaded async-trait v0.1.89
+#16 6.720   Downloaded either v1.15.0
+#16 6.723   Downloaded form_urlencoded v1.2.2
+#16 6.725   Downloaded colorchoice v1.0.5
+#16 6.727   Downloaded utf8_iter v1.0.4
+#16 6.730   Downloaded cpufeatures v0.2.17
+#16 6.733   Downloaded untrusted v0.9.0
+#16 6.739   Downloaded utf8-width v0.1.8
+#16 6.742   Downloaded futures-task v0.3.32
+#16 6.745   Downloaded futures-core v0.3.32
+#16 6.748   Downloaded futures-sink v0.3.32
+#16 6.751   Downloaded matchers v0.2.0
+#16 6.754   Downloaded fastrand v2.3.0
+#16 6.757   Downloaded hex v0.4.3
+#16 6.761   Downloaded errno v0.3.14
+#16 6.763   Downloaded equivalent v1.0.2
+#16 6.766   Downloaded crypto-common v0.1.7
+#16 6.768   Downloaded lazy_static v1.5.0
+#16 6.772   Downloaded itoa v1.0.18
+#16 6.775   Downloaded httpdate v1.0.3
+#16 6.778   Downloaded heck v0.5.0
+#16 6.781   Downloaded http-body v1.0.1
+#16 6.783   Downloaded futures-macro v0.3.32
+#16 6.785   Downloaded idna_adapter v1.2.1
+#16 6.788   Downloaded cfg_aliases v0.2.1
+#16 6.790   Downloaded lru-slab v0.1.2
+#16 6.792   Downloaded version_check v0.9.5
+#16 6.795   Downloaded generic-array v0.14.7
+#16 6.798   Downloaded matchit v0.8.4
+#16 6.803   Downloaded is_terminal_polyfill v1.70.2
+#16 6.805   Downloaded anstyle v1.0.14
+#16 6.808   Downloaded find-msvc-tools v0.1.9
+#16 6.812   Downloaded crossbeam-utils v0.8.21
+#16 6.817   Downloaded clap_derive v4.6.0
+#16 6.821   Downloaded anstream v1.0.0
+#16 6.912   Downloaded hyper-timeout v0.5.2
+#16 6.916   Downloaded axum-core v0.5.6
+#16 6.922   Downloaded jobserver v0.1.34
+#16 6.928   Downloaded tracing-serde v0.2.0
+#16 6.931   Downloaded html-escape v0.2.13
+#16 6.936   Downloaded uuid v1.22.0
+#16 6.943   Downloaded yoke-derive v0.8.1
+#16 6.946   Downloaded stable_deref_trait v1.2.1
+#16 6.949   Downloaded rustc-hash v2.1.1
+#16 6.952   Downloaded percent-encoding v2.3.2
+#16 6.956   Downloaded sha1 v0.10.6
+#16 6.962   Downloaded sync_wrapper v1.0.2
+#16 6.964   Downloaded potential_utf v0.1.4
+#16 6.967   Downloaded tower-layer v0.3.3
+#16 6.970   Downloaded serde_bytes v0.11.19
+#16 6.973   Downloaded httparse v1.10.1
+#16 6.978   Downloaded iana-time-zone v0.1.65
+#16 6.986   Downloaded glob v0.3.3
+#16 6.989   Downloaded litemap v0.8.1
+#16 6.993   Downloaded try-lock v0.2.5
+#16 6.995   Downloaded tonic-build v0.14.5
+#16 6.997   Downloaded tinystr v0.8.2
+#16 7.002   Downloaded thiserror v2.0.18
+#16 7.013   Downloaded lock_api v0.4.14
+#16 7.016   Downloaded ipnetwork v0.21.1
+#16 7.020   Downloaded ipnet v2.12.0
+#16 7.023   Downloaded futures-channel v0.3.32
+#16 7.026   Downloaded displaydoc v0.2.5
+#16 7.032   Downloaded want v0.3.1
+#16 7.034   Downloaded futures-executor v0.3.32
+#16 7.036   Downloaded dashmap v6.1.0
+#16 7.041   Downloaded anyhow v1.0.102
+#16 7.048   Downloaded bitflags v2.11.0
+#16 7.056   Downloaded tinyvec_macros v0.1.1
+#16 7.058   Downloaded http-body-util v0.1.3
+#16 7.061   Downloaded hyper-rustls v0.27.7
+#16 7.067   Downloaded tonic-prost-build v0.14.5
+#16 7.069   Downloaded thread_local v1.1.9
+#16 7.075   Downloaded strsim v0.11.1
+#16 7.075   Downloaded thiserror-impl v2.0.18
+#16 7.078   Downloaded getrandom v0.4.2
+#16 7.084   Downloaded tracing-log v0.2.0
+#16 7.087   Downloaded fs_extra v1.3.0
+#16 7.090   Downloaded clap v4.6.0
+#16 7.106   Downloaded phf_generator v0.13.1
+#16 7.109   Downloaded icu_provider v2.1.1
+#16 7.113   Downloaded mime v0.3.17
+#16 7.116   Downloaded getrandom v0.3.4
+#16 7.122   Downloaded tokio-macros v2.6.1
+#16 7.124   Downloaded tinyvec v1.11.0
+#16 7.129   Downloaded siphasher v1.0.2
+#16 7.131   Downloaded icu_properties v2.1.2
+#16 7.135   Downloaded icu_locale_core v2.1.1
+#16 7.146   Downloaded bytes v1.11.1
+#16 7.154   Downloaded tracing-attributes v0.1.31
+#16 7.158   Downloaded base64 v0.22.1
+#16 7.164   Downloaded icu_normalizer v2.1.1
+#16 7.170   Downloaded unicase v2.9.0
+#16 7.173   Downloaded thiserror-impl v1.0.69
+#16 7.176   Downloaded protobuf-support v3.7.2
+#16 7.178   Downloaded getrandom v0.2.17
+#16 7.184   Downloaded icu_normalizer_data v2.1.1
+#16 7.187   Downloaded futures v0.3.32
+#16 7.196   Downloaded tokio-stream v0.1.18
+#16 7.204   Downloaded icu_collections v2.1.1
+#16 7.215   Downloaded tokio-rustls v0.26.4
+#16 7.218   Downloaded phf_shared v0.13.1
+#16 7.220   Downloaded log v0.4.29
+#16 7.225   Downloaded fixedbitset v0.5.7
+#16 7.228   Downloaded foldhash v0.1.5
+#16 7.231   Downloaded fnv v1.0.7
+#16 7.232   Downloaded digest v0.10.7
+#16 7.236   Downloaded cmake v0.1.57
+#16 7.238   Downloaded tracing-core v0.1.36
+#16 7.245   Downloaded hyper-util v0.1.20
+#16 7.255   Downloaded cc v1.2.57
+#16 7.262   Downloaded scopeguard v1.2.0
+#16 7.267   Downloaded indexmap v2.13.0
+#16 7.275   Downloaded zerofrom v0.1.6
+#16 7.277   Downloaded http v1.4.0
+#16 7.283   Downloaded md-5 v0.10.6
+#16 7.328   Downloaded tonic v0.14.5
+#16 7.351   Downloaded hashbrown v0.14.5
+#16 7.358   Downloaded hashbrown v0.16.1
+#16 7.366   Downloaded zerofrom-derive v0.1.6
+#16 7.376   Downloaded tokio-util v0.7.18
+#16 7.387   Downloaded tower-http v0.6.8
+#16 7.400   Downloaded idna v1.1.0
+#16 7.405   Downloaded iri-string v0.7.11
+#16 7.417   Downloaded openssl-probe v0.2.1
+#16 7.419   Downloaded pin-utils v0.1.0
+#16 7.420   Downloaded itertools v0.14.0
+#16 7.431   Downloaded subtle v2.6.1
+#16 7.433   Downloaded futures-util v0.3.32
+#16 7.452   Downloaded tonic-prost v0.14.5
+#16 7.453   Downloaded clap_builder v4.6.0
+#16 7.463   Downloaded tower-service v0.3.3
+#16 7.464   Downloaded aws-lc-rs v1.16.2
+#16 7.480   Downloaded tracing-subscriber v0.3.23
+#16 7.492   Downloaded icu_properties_data v2.1.2
+#16 7.509   Downloaded rand_chacha v0.9.0
+#16 7.512   Downloaded prost-derive v0.14.3
+#16 7.514   Downloaded chrono v0.4.44
+#16 7.525   Downloaded zerovec-derive v0.11.2
+#16 7.527   Downloaded h2 v0.4.13
+#16 7.537   Downloaded zeroize v1.8.2
+#16 7.539   Downloaded aho-corasick v1.1.4
+#16 7.548   Downloaded nu-ansi-term v0.50.3
+#16 7.551   Downloaded hyper v1.8.1
+#16 7.563   Downloaded hashbrown v0.15.5
+#16 7.570   Downloaded axum v0.8.8
+#16 7.585   Downloaded prost-build v0.14.3
+#16 7.592   Downloaded multimap v0.10.1
+#16 7.610   Downloaded writeable v0.6.2
+#16 7.622   Downloaded rand_core v0.9.5
+#16 7.624   Downloaded tracing v0.1.44
+#16 7.652   Downloaded signal-hook-registry v1.4.8
+#16 7.654   Downloaded yoke v0.8.1
+#16 7.668   Downloaded slab v0.4.12
+#16 7.684   Downloaded rustls-native-certs v0.8.3
+#16 7.707   Downloaded phf_macros v0.13.1
+#16 7.713   Downloaded pin-project-internal v1.1.11
+#16 7.736   Downloaded sha2 v0.10.9
+#16 7.742   Downloaded synstructure v0.13.2
+#16 7.750   Downloaded quote v1.0.45
+#16 7.758   Downloaded zmij v1.0.21
+#16 7.765   Downloaded thiserror v1.0.69
+#16 7.780   Downloaded shlex v1.3.0
+#16 7.783   Downloaded libc v0.2.183
+#16 7.839   Downloaded tokio v1.50.0
+#16 7.975   Downloaded prost v0.14.3
+#16 7.998   Downloaded pin-project-lite v0.2.17
+#16 8.020   Downloaded quinn-udp v0.5.14
+#16 8.033   Downloaded ppv-lite86 v0.2.21
+#16 8.035   Downloaded parking_lot_core v0.9.12
+#16 8.038   Downloaded url v2.5.8
+#16 8.043   Downloaded pulldown-cmark-to-cmark v22.0.0
+#16 8.045   Downloaded unicode-ident v1.0.24
+#16 8.079   Downloaded tempfile v3.27.0
+#16 8.086   Downloaded once_cell v1.21.4
+#16 8.108   Downloaded phf v0.13.1
+#16 8.131   Downloaded parking_lot v0.12.5
+#16 8.247   Downloaded prost-types v0.14.3
+#16 8.250   Downloaded proc-macro2 v1.0.106
+#16 8.277   Downloaded pin-project v1.1.11
+#16 8.298   Downloaded socket2 v0.6.3
+#16 8.301   Downloaded linux-raw-sys v0.12.1
+#16 8.406   Downloaded serde_derive v1.0.228
+#16 8.410   Downloaded serde_core v1.0.228
+#16 8.414   Downloaded rustls-platform-verifier v0.6.2
+#16 8.420   Downloaded sharded-slab v0.1.7
+#16 8.425   Downloaded rustls-pki-types v1.14.0
+#16 8.519   Downloaded smallvec v1.15.1
+#16 8.540   Downloaded num-traits v0.2.19
+#16 8.722   Downloaded zentinel-common v0.5.13
+#16 8.761   Downloaded typenum v1.19.0
+#16 8.766   Downloaded prettyplease v0.2.37
+#16 8.774   Downloaded zerotrie v0.2.3
+#16 8.818   Downloaded serde v1.0.228
+#16 8.831   Downloaded quinn v0.11.9
+#16 8.861   Downloaded rustls-webpki v0.103.10
+#16 8.866   Downloaded memchr v2.8.0
+#16 8.897   Downloaded prometheus v0.14.0
+#16 9.072   Downloaded rand v0.9.2
+#16 9.084   Downloaded mio v1.1.1
+#16 9.220   Downloaded aws-lc-sys v0.39.0
+#16 9.614   Downloaded tower v0.5.3
+#16 9.628   Downloaded zerovec v0.11.5
+#16 9.873   Downloaded regex v1.12.3
+#16 9.912   Downloaded pulldown-cmark v0.13.3
+#16 10.03   Downloaded zentinel-agent-protocol v0.5.13
+#16 10.12   Downloaded serde_json v1.0.149
+#16 10.14   Downloaded reqwest v0.13.2
+#16 10.56   Downloaded sysinfo v0.38.4
+#16 10.62   Downloaded quinn-proto v0.11.14
+#16 10.69   Downloaded protobuf v3.7.2
+#16 10.80   Downloaded zerocopy v0.8.47
+#16 10.96   Downloaded syn v2.0.117
+#16 11.18   Downloaded regex-syntax v0.8.10
+#16 11.21   Downloaded rustls v0.23.37
+#16 11.32   Downloaded rustix v1.1.4
+#16 11.73   Downloaded regex-automata v0.4.14
+#16 11.95   Downloaded petgraph v0.8.3
+#16 12.36   Downloaded ring v0.17.14
+#16 12.50    Compiling proc-macro2 v1.0.106
+#16 12.50    Compiling quote v1.0.45
+#16 12.50    Compiling unicode-ident v1.0.24
+#16 12.50    Compiling libc v0.2.183
+#16 12.57    Compiling serde_core v1.0.228
+#16 12.72    Compiling cfg-if v1.0.4
+#16 12.77    Compiling serde v1.0.228
+#16 13.66    Compiling syn v2.0.117
+#16 13.78    Compiling once_cell v1.21.4
+#16 13.97    Compiling pin-project-lite v0.2.17
+#16 14.11    Compiling memchr v2.8.0
+#16 14.19    Compiling bytes v1.11.1
+#16 15.01    Compiling parking_lot_core v0.9.12
+#16 15.10    Compiling futures-core v0.3.32
+#16 15.19    Compiling scopeguard v1.2.0
+#16 15.23    Compiling jobserver v0.1.34
+#16 15.24    Compiling lock_api v0.4.14
+#16 15.25    Compiling shlex v1.3.0
+#16 15.38    Compiling find-msvc-tools v0.1.9
+#16 15.43    Compiling itoa v1.0.18
+#16 15.51    Compiling cc v1.2.57
+#16 15.55    Compiling tracing-core v0.1.36
+#16 15.64    Compiling errno v0.3.14
+#16 15.73    Compiling signal-hook-registry v1.4.8
+#16 16.21    Compiling socket2 v0.6.3
+#16 16.62    Compiling mio v1.1.1
+#16 16.80    Compiling futures-sink v0.3.32
+#16 16.84    Compiling cmake v0.1.57
+#16 17.13    Compiling synstructure v0.13.2
+#16 17.15    Compiling http v1.4.0
+#16 17.28    Compiling anyhow v1.0.102
+#16 17.51    Compiling fs_extra v1.3.0
+#16 17.58    Compiling stable_deref_trait v1.2.1
+#16 17.69    Compiling slab v0.4.12
+#16 17.74    Compiling dunce v1.0.5
+#16 17.82    Compiling aws-lc-sys v0.39.0
+#16 17.84    Compiling futures-channel v0.3.32
+#16 18.10    Compiling hashbrown v0.16.1
+#16 18.56    Compiling serde_derive v1.0.228
+#16 19.00    Compiling tokio-macros v2.6.1
+#16 19.27    Compiling tracing-attributes v0.1.31
+#16 19.83    Compiling zerofrom-derive v0.1.6
+#16 20.18    Compiling yoke-derive v0.8.1
+#16 20.93    Compiling tracing v0.1.44
+#16 21.24    Compiling zerofrom v0.1.6
+#16 21.33    Compiling futures-macro v0.3.32
+#16 21.40    Compiling yoke v0.8.1
+#16 21.54    Compiling zerovec-derive v0.11.2
+#16 22.15    Compiling equivalent v1.0.2
+#16 22.21    Compiling futures-task v0.3.32
+#16 22.31    Compiling futures-io v0.3.32
+#16 22.42    Compiling futures-util v0.3.32
+#16 22.73    Compiling smallvec v1.15.1
+#16 22.77    Compiling zerovec v0.11.5
+#16 23.22    Compiling parking_lot v0.12.5
+#16 23.27    Compiling indexmap v2.13.0
+#16 23.98    Compiling tokio v1.50.0
+#16 24.12    Compiling displaydoc v0.2.5
+#16 24.88    Compiling http-body v1.0.1
+#16 24.94    Compiling ring v0.17.14
+#16 24.99    Compiling log v0.4.29
+#16 25.14    Compiling getrandom v0.4.2
+#16 25.29    Compiling aws-lc-rs v1.16.2
+#16 25.48    Compiling zeroize v1.8.2
+#16 25.72    Compiling percent-encoding v2.3.2
+#16 25.89    Compiling fnv v1.0.7
+#16 25.93    Compiling tower-service v0.3.3
+#16 25.97    Compiling either v1.15.0
+#16 26.11    Compiling itertools v0.14.0
+#16 27.82    Compiling rustls-pki-types v1.14.0
+#16 28.76    Compiling tokio-util v0.7.18
+#16 29.75    Compiling getrandom v0.2.17
+#16 29.91    Compiling version_check v0.9.5
+#16 30.12    Compiling typenum v1.19.0
+#16 30.35    Compiling untrusted v0.9.0
+#16 30.42    Compiling fastrand v2.3.0
+#16 30.56    Compiling httparse v1.10.1
+#16 30.83    Compiling generic-array v0.14.7
+#16 30.97    Compiling prost-derive v0.14.3
+#16 32.53    Compiling tinystr v0.8.2
+#16 32.67    Compiling try-lock v0.2.5
+#16 32.71    Compiling atomic-waker v1.1.2
+#16 32.77    Compiling litemap v0.8.1
+#16 32.93    Compiling bitflags v2.11.0
+#16 33.07    Compiling rustls v0.23.37
+#16 33.18    Compiling writeable v0.6.2
+#16 33.32    Compiling icu_locale_core v2.1.1
+#16 35.49    Compiling h2 v0.4.13
+#16 36.77    Compiling want v0.3.1
+#16 37.77    Compiling zerotrie v0.2.3
+#16 38.10    Compiling potential_utf v0.1.4
+#16 38.21    Compiling sync_wrapper v1.0.2
+#16 38.26    Compiling httpdate v1.0.3
+#16 38.54    Compiling icu_properties_data v2.1.2
+#16 38.67    Compiling pin-utils v0.1.0
+#16 38.70    Compiling icu_normalizer_data v2.1.1
+#16 38.83    Compiling pulldown-cmark v0.13.3
+#16 38.98    Compiling rustix v1.1.4
+#16 39.34    Compiling prettyplease v0.2.37
+#16 39.49    Compiling base64 v0.22.1
+#16 39.89    Compiling subtle v2.6.1
+#16 39.99    Compiling zmij v1.0.21
+#16 40.18    Compiling tower-layer v0.3.3
+#16 40.23    Compiling heck v0.5.0
+#16 40.39    Compiling hyper v1.8.1
+#16 40.48    Compiling icu_collections v2.1.1
+#16 41.40    Compiling icu_provider v2.1.1
+#16 42.28    Compiling aho-corasick v1.1.4
+#16 42.34    Compiling serde_json v1.0.149
+#16 43.13    Compiling thiserror v1.0.69
+#16 43.77    Compiling regex-syntax v0.8.10
+#16 45.52    Compiling linux-raw-sys v0.12.1
+#16 45.84    Compiling foldhash v0.1.5
+#16 46.40    Compiling ipnet v2.12.0
+#16 47.56    Compiling unicase v2.9.0
+#16 49.40    Compiling regex-automata v0.4.14
+#16 49.45    Compiling hyper-util v0.1.20
+#16 51.17    Compiling hashbrown v0.15.5
+#16 52.66    Compiling prost v0.14.3
+#16 53.26    Compiling tower v0.5.3
+#16 53.71    Compiling http-body-util v0.1.3
+#16 53.90    Compiling thiserror-impl v1.0.69
+#16 54.23    Compiling lazy_static v1.5.0
+#16 54.27    Compiling fixedbitset v0.5.7
+#16 54.47    Compiling openssl-probe v0.2.1
+#16 54.67    Compiling autocfg v1.5.0
+#16 55.09    Compiling thiserror v2.0.18
+#16 55.17    Compiling tempfile v3.27.0
+#16 55.37    Compiling num-traits v0.2.19
+#16 55.45    Compiling rustls-native-certs v0.8.3
+#16 55.55    Compiling petgraph v0.8.3
+#16 56.82    Compiling icu_properties v2.1.2
+#16 58.38    Compiling icu_normalizer v2.1.1
+#16 58.71    Compiling prost-types v0.14.3
+#16 59.59    Compiling regex v1.12.3
+#16 59.70    Compiling pulldown-cmark-to-cmark v22.0.0
+#16 59.95    Compiling block-buffer v0.10.4
+#16 59.95    Compiling crypto-common v0.1.7
+#16 60.02    Compiling thiserror-impl v2.0.18
+#16 60.03    Compiling siphasher v1.0.2
+#16 60.15    Compiling mime v0.3.17
+#16 60.53    Compiling multimap v0.10.1
+#16 60.63    Compiling utf8parse v0.2.2
+#16 60.84    Compiling protobuf v3.7.2
+#16 61.03    Compiling prost-build v0.14.3
+#16 61.47    Compiling anstyle-parse v1.0.0
+#16 61.62    Compiling axum-core v0.5.6
+#16 62.20    Compiling phf_shared v0.13.1
+#16 62.38    Compiling digest v0.10.7
+#16 62.54    Compiling idna_adapter v1.2.1
+#16 62.69    Compiling protobuf-support v3.7.2
+#16 63.61    Compiling matchers v0.2.0
+#16 63.71    Compiling sharded-slab v0.1.7
+#16 63.80    Compiling tonic-build v0.14.5
+#16 64.35    Compiling tracing-log v0.2.0
+#16 64.44    Compiling tracing-serde v0.2.0
+#16 64.52    Compiling pin-project-internal v1.1.11
+#16 64.68    Compiling thread_local v1.1.9
+#16 64.93    Compiling utf8_iter v1.0.4
+#16 65.05    Compiling prometheus v0.14.0
+#16 65.19    Compiling anstyle-query v1.1.5
+#16 65.24    Compiling is_terminal_polyfill v1.70.2
+#16 65.29    Compiling crossbeam-utils v0.8.21
+#16 65.52    Compiling anstyle v1.0.14
+#16 65.70    Compiling colorchoice v1.0.5
+#16 65.75    Compiling matchit v0.8.4
+#16 65.79    Compiling nu-ansi-term v0.50.3
+#16 66.23    Compiling tracing-subscriber v0.3.23
+#16 66.36    Compiling axum v0.8.8
+#16 68.46    Compiling anstream v1.0.0
+#16 69.23    Compiling pin-project v1.1.11
+#16 69.41    Compiling idna v1.1.0
+#16 71.71    Compiling tonic-prost-build v0.14.5
+#16 72.73    Compiling phf_generator v0.13.1
+#16 72.87    Compiling hyper-timeout v0.5.2
+#16 73.01    Compiling tokio-stream v0.1.18
+#16 73.54    Compiling form_urlencoded v1.2.2
+#16 73.75    Compiling async-trait v0.1.89
+#16 74.26    Compiling iana-time-zone v0.1.65
+#16 74.78    Compiling clap_lex v1.1.0
+#16 74.82    Compiling cpufeatures v0.2.17
+#16 74.99    Compiling strsim v0.11.1
+#16 75.10    Compiling iri-string v0.7.11
+#16 77.80    Compiling tower-http v0.6.8
+#16 78.72    Compiling clap_builder v4.6.0
+#16 84.08    Compiling chrono v0.4.44
+#16 88.42    Compiling url v2.5.8
+#16 90.39    Compiling phf_macros v0.13.1
+#16 90.79    Compiling zentinel-agent-protocol v0.5.13
+#16 91.19    Compiling uuid v1.22.0
+#16 91.98    Compiling clap_derive v4.6.0
+#16 93.09    Compiling futures-executor v0.3.32
+#16 93.53    Compiling sysinfo v0.38.4
+#16 93.91    Compiling utf8-width v0.1.8
+#16 94.01    Compiling hashbrown v0.14.5
+#16 94.75    Compiling dashmap v6.1.0
+#16 95.39    Compiling zentinel-common v0.5.13
+#16 100.8    Compiling html-escape v0.2.13
+#16 101.5    Compiling clap v4.6.0
+#16 101.5    Compiling futures v0.3.32
+#16 101.6    Compiling phf v0.13.1
+#16 101.7    Compiling sha2 v0.10.9
+#16 102.2    Compiling sha1 v0.10.6
+#16 102.5    Compiling md-5 v0.10.6
+#16 103.3    Compiling serde_bytes v0.11.19
+#16 103.5    Compiling ipnetwork v0.21.1
+#16 104.1    Compiling hex v0.4.3
+#16 104.1    Compiling glob v0.3.3
+#16 104.3    Compiling zentinel-modsec v0.1.2 (/app/zentinel-modsec/zentinel-modsec-main)
+#16 104.4 error[E0412]: cannot find type `SetVarOp` in module `crate::parser`
+#16 104.4  --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:9:25
+#16 104.4   |
+#16 104.4 9 |     op: &crate::parser::SetVarOp,
+#16 104.4   |                         ^^^^^^^^ not found in `crate::parser`
+#16 104.4   |
+#16 104.4 help: consider importing this struct
+#16 104.4   |
+#16 104.4 3 + use crate::actions::SetVarOp;
+#16 104.4   |
+#16 104.4 help: if you import `SetVarOp`, refer to it directly
+#16 104.4   |
+#16 104.4 9 -     op: &crate::parser::SetVarOp,
+#16 104.4 9 +     op: &SetVarOp,
+#16 104.4   |
+#16 104.4 
+#16 104.4 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 104.4   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:14:24
+#16 104.4    |
+#16 104.4 14 |         crate::parser::SetVarOperation::Set(value) => {
+#16 104.4    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 104.5    |
+#16 104.5 help: consider importing this enum
+#16 104.5    |
+#16 104.5 3  + use crate::actions::SetVarOperation;
+#16 104.5    |
+#16 104.5 help: if you import `SetVarOperation`, refer to it directly
+#16 104.5    |
+#16 104.5 14 -         crate::parser::SetVarOperation::Set(value) => {
+#16 104.5 14 +         SetVarOperation::Set(value) => {
+#16 104.5    |
+#16 104.5 
+#16 104.5 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 104.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:18:24
+#16 104.5    |
+#16 104.5 18 |         crate::parser::SetVarOperation::Increment(delta) => {
+#16 104.5    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 104.5    |
+#16 104.5 help: consider importing this enum
+#16 104.5    |
+#16 104.5 3  + use crate::actions::SetVarOperation;
+#16 104.5    |
+#16 104.5 help: if you import `SetVarOperation`, refer to it directly
+#16 104.5    |
+#16 104.5 18 -         crate::parser::SetVarOperation::Increment(delta) => {
+#16 104.5 18 +         SetVarOperation::Increment(delta) => {
+#16 104.5    |
+#16 104.5 
+#16 104.5 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 104.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:21:24
+#16 104.5    |
+#16 104.5 21 |         crate::parser::SetVarOperation::Decrement(delta) => {
+#16 104.5    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 104.5    |
+#16 104.5 help: consider importing this enum
+#16 104.5    |
+#16 104.5 3  + use crate::actions::SetVarOperation;
+#16 104.5    |
+#16 104.5 help: if you import `SetVarOperation`, refer to it directly
+#16 104.5    |
+#16 104.5 21 -         crate::parser::SetVarOperation::Decrement(delta) => {
+#16 104.5 21 +         SetVarOperation::Decrement(delta) => {
+#16 104.5    |
+#16 104.5 
+#16 104.5 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 104.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:24:24
+#16 104.5    |
+#16 104.5 24 |         crate::parser::SetVarOperation::Delete => {
+#16 104.5    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 104.5    |
+#16 104.5 help: consider importing this enum
+#16 104.5    |
+#16 104.5 3  + use crate::actions::SetVarOperation;
+#16 104.5    |
+#16 104.5 help: if you import `SetVarOperation`, refer to it directly
+#16 104.5    |
+#16 104.5 24 -         crate::parser::SetVarOperation::Delete => {
+#16 104.5 24 +         SetVarOperation::Delete => {
+#16 104.5    |
+#16 104.5 
+#16 104.5 error[E0412]: cannot find type `SetVarOp` in module `crate::parser`
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/transaction.rs:358:52
+#16 104.5     |
+#16 104.5 358 |     fn apply_setvar(&mut self, op: &crate::parser::SetVarOp, matched_var: Option<&str>, matched_var_name: Option<&str>) {
+#16 104.5     |                                                    ^^^^^^^^ not found in `crate::parser`
+#16 104.5     |
+#16 104.5 help: consider importing this struct
+#16 104.5     |
+#16 104.5 3   + use crate::actions::SetVarOp;
+#16 104.5     |
+#16 104.5 help: if you import `SetVarOp`, refer to it directly
+#16 104.5     |
+#16 104.5 358 -     fn apply_setvar(&mut self, op: &crate::parser::SetVarOp, matched_var: Option<&str>, matched_var_name: Option<&str>) {
+#16 104.5 358 +     fn apply_setvar(&mut self, op: &SetVarOp, matched_var: Option<&str>, matched_var_name: Option<&str>) {
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:130:29
+#16 104.5     |
+#16 104.5 130 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |                             ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 130 -             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5 130 +             crate::actions::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:169:29
+#16 104.5     |
+#16 104.5 169 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |                             ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 169 -             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5 169 +             crate::actions::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:208:29
+#16 104.5     |
+#16 104.5 208 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |                             ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 208 -             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5 208 +             crate::actions::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:247:29
+#16 104.5     |
+#16 104.5 247 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |                             ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 247 -             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5 247 +             crate::actions::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:286:29
+#16 104.5     |
+#16 104.5 286 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |                             ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 286 -             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.5 286 +             crate::actions::expand_macros(&self.arg, tx, None, None)
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:172:56
+#16 104.5     |
+#16 104.5 172 |             self.values.iter().map(|v| crate::actions::data::expand_macros(v, tx, None, None)).collect::<Vec<_>>()
+#16 104.5     |                                                        ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 172 -             self.values.iter().map(|v| crate::actions::data::expand_macros(v, tx, None, None)).collect::<Vec<_>>()
+#16 104.5 172 +             self.values.iter().map(|v| crate::actions::expand_macros(v, tx, None, None)).collect::<Vec<_>>()
+#16 104.5     |
+#16 104.5 
+#16 104.5 error[E0603]: module `data` is private
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:203:44
+#16 104.5     |
+#16 104.5 203 |             let expanded = crate::actions::data::expand_macros(&self.expected, tx, None, None);
+#16 104.5     |                                            ^^^^ private module
+#16 104.5     |
+#16 104.5 note: the module `data` is defined here
+#16 104.5    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/mod.rs:5:1
+#16 104.5     |
+#16 104.5 5   | mod data;
+#16 104.5     | ^^^^^^^^^
+#16 104.5 help: consider importing this function through its public re-export instead
+#16 104.5     |
+#16 104.5 203 -             let expanded = crate::actions::data::expand_macros(&self.expected, tx, None, None);
+#16 104.5 203 +             let expanded = crate::actions::expand_macros(&self.expected, tx, None, None);
+#16 104.5     |
+#16 104.5 
+#16 104.5 warning: unused imports: `Error` and `Result`
+#16 104.5  --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:4:20
+#16 104.5   |
+#16 104.5 4 | use crate::error::{Error, Result};
+#16 104.5   |                    ^^^^^  ^^^^^^
+#16 104.5   |
+#16 104.5   = note: `#[warn(unused_imports)]` on by default
+#16 104.5 
+#16 104.5 warning: unused imports: `SetVarOp` and `SetVarOperation`
+#16 104.5  --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:3:13
+#16 104.5   |
+#16 104.5 3 | use super::{SetVarOp, SetVarOperation};
+#16 104.5   |             ^^^^^^^^  ^^^^^^^^^^^^^^^
+#16 104.5 
+#16 104.5 warning: unused imports: `SetVarOp` and `execute_actions`
+#16 104.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/transaction.rs:10:22
+#16 104.5    |
+#16 104.5 10 | use crate::actions::{execute_actions, DisruptiveOutcome, FlowOutcome, SetVarOp};
+#16 104.5    |                      ^^^^^^^^^^^^^^^                                  ^^^^^^^^
+#16 104.5 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:130:60
+#16 104.7     |
+#16 104.7 130 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.7     |             -----------------------------------            ^^ doesn't have a size known at compile-time
+#16 104.7     |             |
+#16 104.7     |             required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:169:60
+#16 104.7     |
+#16 104.7 169 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.7     |             -----------------------------------            ^^ doesn't have a size known at compile-time
+#16 104.7     |             |
+#16 104.7     |             required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:208:60
+#16 104.7     |
+#16 104.7 208 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.7     |             -----------------------------------            ^^ doesn't have a size known at compile-time
+#16 104.7     |             |
+#16 104.7     |             required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:247:60
+#16 104.7     |
+#16 104.7 247 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.7     |             -----------------------------------            ^^ doesn't have a size known at compile-time
+#16 104.7     |             |
+#16 104.7     |             required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:286:60
+#16 104.7     |
+#16 104.7 286 |             crate::actions::data::expand_macros(&self.arg, tx, None, None)
+#16 104.7     |             -----------------------------------            ^^ doesn't have a size known at compile-time
+#16 104.7     |             |
+#16 104.7     |             required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:172:79
+#16 104.7     |
+#16 104.7 172 |             self.values.iter().map(|v| crate::actions::data::expand_macros(v, tx, None, None)).collect::<Vec<_>>()
+#16 104.7     |                                        -----------------------------------    ^^ doesn't have a size known at compile-time
+#16 104.7     |                                        |
+#16 104.7     |                                        required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.7 error[E0277]: the size for values of type `dyn Collection` cannot be known at compilation time
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:203:80
+#16 104.7     |
+#16 104.7 203 |             let expanded = crate::actions::data::expand_macros(&self.expected, tx, None, None);
+#16 104.7     |                            -----------------------------------                 ^^ doesn't have a size known at compile-time
+#16 104.7     |                            |
+#16 104.7     |                            required by a bound introduced by this call
+#16 104.7     |
+#16 104.7     = help: the trait `Sized` is not implemented for `dyn Collection`
+#16 104.7 note: required by an implicit `Sized` bound in `expand_macros`
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:10
+#16 104.7     |
+#16 104.7 36  | pub fn expand_macros(
+#16 104.7     |        ------------- required by a bound in this function
+#16 104.7 37  |     value: &str,
+#16 104.7 38  |     tx: &impl Collection,
+#16 104.7     |          ^^^^^^^^^^^^^^^ required by the implicit `Sized` requirement on this type parameter in `expand_macros`
+#16 104.7 help: consider relaxing the implicit `Sized` restriction
+#16 104.7    --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:38:25
+#16 104.7     |
+#16 104.7 38  |     tx: &impl Collection + ?Sized,
+#16 104.7     |                          ++++++++
+#16 104.7 
+#16 104.8 error[E0308]: mismatched types
+#16 104.8    --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/transaction.rs:350:39
+#16 104.8     |
+#16 104.8 350 |                 return Ok((true, Some(transformed), result.captures));
+#16 104.8     |                                  ---- ^^^^^^^^^^^- help: try using a conversion method: `.to_string()`
+#16 104.8     |                                  |    |
+#16 104.8     |                                  |    expected `String`, found `Cow<'_, str>`
+#16 104.8     |                                  arguments to this enum variant are incorrect
+#16 104.8     |
+#16 104.8     = note: expected struct `String`
+#16 104.8                  found enum `Cow<'_, str>`
+#16 104.8 help: the type constructed contains `Cow<'_, str>` due to the type of the argument passed
+#16 104.8    --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/transaction.rs:350:34
+#16 104.8     |
+#16 104.8 350 |                 return Ok((true, Some(transformed), result.captures));
+#16 104.8     |                                  ^^^^^-----------^
+#16 104.8     |                                       |
+#16 104.8     |                                       this argument influences the type of `Some`
+#16 104.8 note: tuple variant defined here
+#16 104.8    --> /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/option.rs:597:5
+#16 104.8 
+#16 104.9 warning: unreachable pattern
+#16 104.9   --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:79:9
+#16 104.9    |
+#16 104.9 79 |         _ => Err(Error::UnknownOperator { name: format!("{:?}", name) }),
+#16 104.9    |         ^ no value can reach this
+#16 104.9    |
+#16 104.9 note: multiple earlier patterns match some of the same values
+#16 104.9   --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:79:9
+#16 104.9    |
+#16 104.9 41 |         OperatorName::Rx => Ok(Arc::new(RxOperator::new(argument)?)),
+#16 104.9    |         ---------------- matches some of the same values
+#16 104.9 42 |         OperatorName::Pm | OperatorName::Pmf => Ok(Arc::new(PmOperator::new(argument)?)),
+#16 104.9    |         ------------------------------------ matches some of the same values
+#16 104.9 43 |         OperatorName::PmFromFile => Ok(Arc::new(PmOperator::from_file(argument, base_path)?)),
+#16 104.9    |         ------------------------ matches some of the same values
+#16 104.9 44 |         OperatorName::Contains => Ok(Arc::new(ContainsOperator::new(argument))),
+#16 104.9    |         ---------------------- matches some of the same values
+#16 104.9 ...
+#16 104.9 79 |         _ => Err(Error::UnknownOperator { name: format!("{:?}", name) }),
+#16 104.9    |         ^ ...and 25 other patterns collectively make this unreachable
+#16 104.9    = note: `#[warn(unreachable_patterns)]` on by default
+#16 104.9 
+#16 105.0 warning: value assigned to `result` is never read
+#16 105.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:42:13
+#16 105.0    |
+#16 105.0 42 |     let mut result = value.to_string();
+#16 105.0    |             ^^^^^^
+#16 105.0    |
+#16 105.0    = help: maybe it is overwritten before being read?
+#16 105.0    = note: `#[warn(unused_assignments)]` on by default
+#16 105.0 
+#16 105.0 warning: unused variable: `state`
+#16 105.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/chain.rs:80:13
+#16 105.0    |
+#16 105.0 80 |     let mut state = ChainState::new();
+#16 105.0    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_state`
+#16 105.0    |
+#16 105.0    = note: `#[warn(unused_variables)]` on by default
+#16 105.0 
+#16 105.0 warning: variable does not need to be mutable
+#16 105.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/chain.rs:80:9
+#16 105.0    |
+#16 105.0 80 |     let mut state = ChainState::new();
+#16 105.0    |         ----^^^^^
+#16 105.0    |         |
+#16 105.0    |         help: remove this `mut`
+#16 105.0    |
+#16 105.0    = note: `#[warn(unused_mut)]` on by default
+#16 105.0 
+#16 105.1 Some errors have detailed explanations: E0277, E0308, E0412, E0433, E0603.
+#16 105.1 For more information about an error, try `rustc --explain E0277`.
+#16 105.1 warning: `zentinel-modsec` (lib) generated 7 warnings
+#16 105.1 error: could not compile `zentinel-modsec` (lib) due to 21 previous errors; 7 warnings emitted
+#16 105.1 warning: build failed, waiting for other jobs to finish...
+#16 ERROR: process "/bin/sh -c cargo build --release" did not complete successfully: exit code: 101
+------
+ > [zentinelsec builder 8/8] RUN cargo build --release:
+105.0    |         |
+105.0    |         help: remove this `mut`
+105.0    |
+105.0    = note: `#[warn(unused_mut)]` on by default
+105.0 
+105.1 Some errors have detailed explanations: E0277, E0308, E0412, E0433, E0603.
+105.1 For more information about an error, try `rustc --explain E0277`.
+105.1 warning: `zentinel-modsec` (lib) generated 7 warnings
+105.1 error: could not compile `zentinel-modsec` (lib) due to 21 previous errors; 7 warnings emitted
+105.1 warning: build failed, waiting for other jobs to finish...
+------
+failed to solve: process "/bin/sh -c cargo build --release" did not complete successfully: exit code: 101

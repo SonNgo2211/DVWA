@@ -13,15 +13,6 @@ listeners {
           protocol "http"
       }
 
-      listener "https" {
-          address "0.0.0.0:8443"
-          protocol "https"
-          tls {
-              cert-file "/etc/zentinel/tls/misa.crt"
-              key-file "/etc/zentinel/tls/misa.key"
-          }
-      }
-
       listener "h2" {
           address "0.0.0.0:51000"
           protocol "h2"
@@ -62,12 +53,12 @@ routes {
         matches {
             path-prefix "/"
         }
+        filters "zentinelsec"
         upstream "server"
         policies {
             timeout-secs 30
             failure-mode "open"
         }
-        filters "waf"
     }
 
 }
@@ -83,6 +74,12 @@ filters {
     filter "waf" {
         type "agent"
         agent "waf"
+        phase "request"
+        failure-mode "open"
+    }
+    filter "zentinelsec" {
+        type "agent"
+        agent "zentinel-zentinelsec"
         phase "request"
         failure-mode "open"
     }
@@ -102,5 +99,12 @@ agents {
         config {
             paranoia-level 1
         }
+    }
+
+    agent "zentinel-zentinelsec" type="waf" {
+        grpc address="http://zentinelsec:9095"
+        events "request_headers" "request_body"
+        timeout-ms 2000
+        failure-mode "open"
     }
 }

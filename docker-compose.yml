@@ -70,6 +70,25 @@ services:
       RUST_LOG: "debug"
     networks: [dvwa-net]
     restart: unless-stopped
+  
+  zentinelsec:
+    container_name: zentinelsec
+    image: whackers/zentinelsec-agent:v0.3.0-local
+    user: "65532:65532"
+    ports:
+      - "9095:9095"
+    volumes:
+      - share-sockets:/var/run/zentinel
+      - ./config/modsec/:/etc/modsecurity
+    environment:
+      AGENT_GRPC_ADDRESS: 0.0.0.0:9095
+      ZENTINELSEC_EXCLUDE_PATHS: "/health,/metrics"
+      ZENTINELSEC_BLOCK_MODE: "true"
+      AGENT_SOCKET: "/var/run/zentinel/zentinelsec.sock"
+      ZENTINELSEC_RULES: "/etc/modsecurity/config/include.conf"
+      RUST_LOG: "debug"
+    networks: [dvwa-net]
+    restart: unless-stopped  
 
 
 volumes:

@@ -1,0 +1,632 @@
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+#0 building with "default" instance using docker driver
+
+#1 [zentinelsec internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.01kB done
+#1 DONE 0.1s
+
+#2 [zentinelsec] resolve image config for docker-image://docker.io/docker/dockerfile:1.4
+#2 DONE 0.9s
+
+#3 [zentinelsec] docker-image://docker.io/docker/dockerfile:1.4@sha256:9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc
+#3 CACHED
+
+#4 [zentinelsec internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [zentinelsec internal] load metadata for docker.io/library/rust:1.88-slim-bookworm
+#5 ...
+
+#6 [zentinelsec internal] load metadata for gcr.io/distroless/cc-debian12:nonroot
+#6 DONE 0.6s
+
+#5 [zentinelsec internal] load metadata for docker.io/library/rust:1.88-slim-bookworm
+#5 DONE 0.8s
+
+#7 [zentinelsec builder 1/8] FROM docker.io/library/rust:1.88-slim-bookworm@sha256:38bc5a86d998772d4aec2348656ed21438d20fcdce2795b56ca434cf21430d89
+#7 DONE 0.0s
+
+#8 [zentinelsec stage-1 1/2] FROM gcr.io/distroless/cc-debian12:nonroot@sha256:7e5b8df2f4d36f5599ef4ab856d7d444922531709becb03f3368c6d797d0a5eb
+#8 DONE 0.0s
+
+#9 [zentinelsec internal] load build context
+#9 transferring context: 4.70kB done
+#9 DONE 0.0s
+
+#10 [zentinelsec builder 6/8] COPY zentinelsec-agent/src zentinelsec-agent/src
+#10 CACHED
+
+#11 [zentinelsec builder 2/8] RUN apt-get update &&     apt-get install -y --no-install-recommends         pkg-config         libssl-dev         protobuf-compiler         cmake         build-essential     && rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [zentinelsec builder 5/8] COPY zentinel-modsec/zentinel-modsec-main /app/zentinel-modsec/zentinel-modsec-main
+#12 CACHED
+
+#13 [zentinelsec builder 3/8] WORKDIR /app
+#13 CACHED
+
+#14 [zentinelsec builder 4/8] COPY zentinelsec-agent/Cargo.toml zentinelsec-agent/
+#14 CACHED
+
+#15 [zentinelsec builder 7/8] WORKDIR /app/zentinelsec-agent
+#15 CACHED
+
+#16 [zentinelsec builder 8/8] RUN cargo build --release
+#16 0.430     Updating crates.io index
+#16 13.89      Locking 328 packages to latest compatible versions
+#16 13.91       Adding generic-array v0.14.7 (available: v0.14.9)
+#16 13.92       Adding matchit v0.8.4 (available: v0.8.6)
+#16 13.94       Adding thiserror v1.0.69 (available: v2.0.18)
+#16 13.95       Adding zentinel-agent-protocol v0.5.13 (available: v0.6.4)
+#16 13.95       Adding zentinel-common v0.5.13 (available: v0.6.4)
+#16 13.97  Downloading crates ...
+#16 14.25   Downloaded anstyle-query v1.1.5
+#16 14.30   Downloaded atomic-waker v1.1.2
+#16 14.31   Downloaded anstyle v1.0.14
+#16 14.36   Downloaded crypto-common v0.1.7
+#16 14.37   Downloaded itoa v1.0.18
+#16 14.40   Downloaded clap_lex v1.1.0
+#16 14.41   Downloaded want v0.3.1
+#16 14.42   Downloaded async-trait v0.1.89
+#16 14.42   Downloaded zerofrom v0.1.6
+#16 14.43   Downloaded futures-macro v0.3.32
+#16 14.43   Downloaded futures-task v0.3.32
+#16 14.43   Downloaded form_urlencoded v1.2.2
+#16 14.44   Downloaded futures-core v0.3.32
+#16 14.44   Downloaded fnv v1.0.7
+#16 14.46   Downloaded futures-io v0.3.32
+#16 14.46   Downloaded generic-array v0.14.7
+#16 14.46   Downloaded httpdate v1.0.3
+#16 14.46   Downloaded axum-core v0.5.6
+#16 14.47   Downloaded autocfg v1.5.0
+#16 14.47   Downloaded lazy_static v1.5.0
+#16 14.48   Downloaded http-body v1.0.1
+#16 14.48   Downloaded block-buffer v0.10.4
+#16 14.48   Downloaded equivalent v1.0.2
+#16 14.48   Downloaded cfg-if v1.0.4
+#16 14.49   Downloaded heck v0.5.0
+#16 14.49   Downloaded errno v0.3.14
+#16 14.49   Downloaded anstyle-parse v1.0.0
+#16 14.50   Downloaded idna_adapter v1.2.1
+#16 14.50   Downloaded either v1.15.0
+#16 14.50   Downloaded fastrand v2.3.0
+#16 14.51   Downloaded anyhow v1.0.102
+#16 14.52   Downloaded is_terminal_polyfill v1.70.2
+#16 14.52   Downloaded matchers v0.2.0
+#16 14.54   Downloaded colorchoice v1.0.5
+#16 14.62   Downloaded yoke-derive v0.8.1
+#16 14.62   Downloaded yoke v0.8.1
+#16 14.65   Downloaded protobuf-support v3.7.2
+#16 14.65   Downloaded phf_generator v0.13.1
+#16 14.69   Downloaded zerofrom-derive v0.1.6
+#16 14.69   Downloaded untrusted v0.9.0
+#16 14.70   Downloaded glob v0.3.3
+#16 14.70   Downloaded futures-sink v0.3.32
+#16 14.70   Downloaded fs_extra v1.3.0
+#16 14.71   Downloaded foldhash v0.1.5
+#16 14.71   Downloaded digest v0.10.7
+#16 14.72   Downloaded anstream v1.0.0
+#16 14.72   Downloaded lru-slab v0.1.2
+#16 14.72   Downloaded lock_api v0.4.14
+#16 14.73   Downloaded litemap v0.8.1
+#16 14.74   Downloaded ipnetwork v0.21.1
+#16 14.74   Downloaded tracing-serde v0.2.0
+#16 14.74   Downloaded tonic-prost v0.14.5
+#16 14.74   Downloaded version_check v0.9.5
+#16 14.75   Downloaded jobserver v0.1.34
+#16 14.75   Downloaded hyper-rustls v0.27.7
+#16 14.76   Downloaded fixedbitset v0.5.7
+#16 14.76   Downloaded hyper-timeout v0.5.2
+#16 14.77   Downloaded writeable v0.6.2
+#16 14.77   Downloaded http-body-util v0.1.3
+#16 14.78   Downloaded getrandom v0.3.4
+#16 14.79   Downloaded getrandom v0.2.17
+#16 14.79   Downloaded tonic-build v0.14.5
+#16 14.80   Downloaded icu_provider v2.1.1
+#16 14.80   Downloaded iana-time-zone v0.1.65
+#16 14.81   Downloaded clap v4.6.0
+#16 14.82   Downloaded icu_normalizer v2.1.1
+#16 14.83   Downloaded utf8-width v0.1.8
+#16 14.83   Downloaded icu_collections v2.1.1
+#16 14.84   Downloaded getrandom v0.4.2
+#16 14.85   Downloaded bytes v1.11.1
+#16 14.85   Downloaded tower-layer v0.3.3
+#16 14.85   Downloaded utf8parse v0.2.2
+#16 14.86   Downloaded utf8_iter v1.0.4
+#16 14.86   Downloaded try-lock v0.2.5
+#16 14.86   Downloaded tonic-prost-build v0.14.5
+#16 14.86   Downloaded uuid v1.22.0
+#16 14.87   Downloaded multimap v0.10.1
+#16 14.87   Downloaded tower-service v0.3.3
+#16 14.87   Downloaded tracing-log v0.2.0
+#16 14.87   Downloaded tokio-macros v2.6.1
+#16 14.87   Downloaded tracing-core v0.1.36
+#16 14.88   Downloaded unicode-ident v1.0.24
+#16 14.88   Downloaded icu_normalizer_data v2.1.1
+#16 14.89   Downloaded icu_properties v2.1.2
+#16 14.89   Downloaded scopeguard v1.2.0
+#16 14.89   Downloaded cc v1.2.57
+#16 14.90   Downloaded tokio-stream v0.1.18
+#16 14.90   Downloaded tinyvec_macros v0.1.1
+#16 14.91   Downloaded tracing-attributes v0.1.31
+#16 14.91   Downloaded tokio-rustls v0.26.4
+#16 14.91   Downloaded http v1.4.0
+#16 14.92   Downloaded subtle v2.6.1
+#16 14.92   Downloaded log v0.4.29
+#16 14.92   Downloaded base64 v0.22.1
+#16 14.93   Downloaded pin-utils v0.1.0
+#16 14.93   Downloaded icu_locale_core v2.1.1
+#16 14.94   Downloaded httparse v1.10.1
+#16 14.95   Downloaded futures v0.3.32
+#16 14.95   Downloaded bitflags v2.11.0
+#16 14.96   Downloaded siphasher v1.0.2
+#16 14.96   Downloaded indexmap v2.13.0
+#16 14.97   Downloaded strsim v0.11.1
+#16 14.97   Downloaded hyper-util v0.1.20
+#16 14.98   Downloaded crossbeam-utils v0.8.21
+#16 14.98   Downloaded clap_derive v4.6.0
+#16 14.99   Downloaded dashmap v6.1.0
+#16 14.99   Downloaded mime v0.3.17
+#16 14.99   Downloaded ipnet v2.12.0
+#16 15.00   Downloaded html-escape v0.2.13
+#16 15.00   Downloaded potential_utf v0.1.4
+#16 15.00   Downloaded hex v0.4.3
+#16 15.00   Downloaded futures-executor v0.3.32
+#16 15.01   Downloaded futures-channel v0.3.32
+#16 15.01   Downloaded find-msvc-tools v0.1.9
+#16 15.01   Downloaded tonic v0.14.5
+#16 15.02   Downloaded idna v1.1.0
+#16 15.03   Downloaded hashbrown v0.15.5
+#16 15.03   Downloaded dunce v1.0.5
+#16 15.03   Downloaded tower v0.5.3
+#16 15.05   Downloaded md-5 v0.10.6
+#16 15.05   Downloaded hyper v1.8.1
+#16 15.06   Downloaded hashbrown v0.14.5
+#16 15.07   Downloaded displaydoc v0.2.5
+#16 15.07   Downloaded rustc-hash v2.1.1
+#16 15.07   Downloaded cpufeatures v0.2.17
+#16 15.08   Downloaded cmake v0.1.57
+#16 15.08   Downloaded cfg_aliases v0.2.1
+#16 15.08   Downloaded stable_deref_trait v1.2.1
+#16 15.11   Downloaded typenum v1.19.0
+#16 15.12   Downloaded h2 v0.4.13
+#16 15.13   Downloaded axum v0.8.8
+#16 15.14   Downloaded futures-util v0.3.32
+#16 15.16   Downloaded clap_builder v4.6.0
+#16 15.17   Downloaded tracing-subscriber v0.3.23
+#16 15.18   Downloaded tower-http v0.6.8
+#16 15.20   Downloaded tokio-util v0.7.18
+#16 15.21   Downloaded aws-lc-rs v1.16.2
+#16 15.22   Downloaded phf_shared v0.13.1
+#16 15.22   Downloaded percent-encoding v2.3.2
+#16 15.22   Downloaded chrono v0.4.44
+#16 15.23   Downloaded url v2.5.8
+#16 15.24   Downloaded itertools v0.14.0
+#16 15.25   Downloaded iri-string v0.7.11
+#16 15.26   Downloaded icu_properties_data v2.1.2
+#16 15.28   Downloaded hashbrown v0.16.1
+#16 15.29   Downloaded sync_wrapper v1.0.2
+#16 15.29   Downloaded aho-corasick v1.1.4
+#16 15.29   Downloaded sha1 v0.10.6
+#16 15.44   Downloaded libc v0.2.183
+#16 15.54   Downloaded quote v1.0.45
+#16 15.55   Downloaded phf v0.13.1
+#16 15.57   Downloaded synstructure v0.13.2
+#16 15.57   Downloaded pin-project-internal v1.1.11
+#16 15.58   Downloaded matchit v0.8.4
+#16 15.61   Downloaded zerovec-derive v0.11.2
+#16 15.65   Downloaded sha2 v0.10.9
+#16 15.67   Downloaded pin-project-lite v0.2.17
+#16 15.68   Downloaded ppv-lite86 v0.2.21
+#16 15.69   Downloaded openssl-probe v0.2.1
+#16 15.74   Downloaded serde_bytes v0.11.19
+#16 15.80   Downloaded thiserror-impl v2.0.18
+#16 15.80   Downloaded thiserror v1.0.69
+#16 15.81   Downloaded slab v0.4.12
+#16 15.81   Downloaded thread_local v1.1.9
+#16 15.82   Downloaded rand_core v0.9.5
+#16 15.82   Downloaded signal-hook-registry v1.4.8
+#16 15.82   Downloaded shlex v1.3.0
+#16 15.82   Downloaded nu-ansi-term v0.50.3
+#16 15.83   Downloaded zeroize v1.8.2
+#16 15.86   Downloaded tinystr v0.8.2
+#16 15.91   Downloaded zmij v1.0.21
+#16 16.05   Downloaded thiserror v2.0.18
+#16 16.07   Downloaded prost-derive v0.14.3
+#16 16.09   Downloaded thiserror-impl v1.0.69
+#16 16.10   Downloaded rand_chacha v0.9.0
+#16 16.14   Downloaded unicase v2.9.0
+#16 16.15   Downloaded rustls-native-certs v0.8.3
+#16 16.15   Downloaded parking_lot v0.12.5
+#16 16.18   Downloaded prost v0.14.3
+#16 16.19   Downloaded phf_macros v0.13.1
+#16 16.20   Downloaded prost-build v0.14.3
+#16 16.28   Downloaded quinn-udp v0.5.14
+#16 16.35   Downloaded rustls-pki-types v1.14.0
+#16 16.36   Downloaded tempfile v3.27.0
+#16 16.42   Downloaded once_cell v1.21.4
+#16 16.45   Downloaded pulldown-cmark-to-cmark v22.0.0
+#16 16.55   Downloaded smallvec v1.15.1
+#16 16.63   Downloaded sharded-slab v0.1.7
+#16 16.65   Downloaded pin-project v1.1.11
+#16 16.67   Downloaded zentinel-common v0.5.13
+#16 16.68   Downloaded parking_lot_core v0.9.12
+#16 16.70   Downloaded prost-types v0.14.3
+#16 16.72   Downloaded linux-raw-sys v0.12.1
+#16 16.82   Downloaded tinyvec v1.11.0
+#16 16.83   Downloaded serde_derive v1.0.228
+#16 16.83   Downloaded rustls-platform-verifier v0.6.2
+#16 16.84   Downloaded socket2 v0.6.3
+#16 17.05   Downloaded zerotrie v0.2.3
+#16 17.08   Downloaded prettyplease v0.2.37
+#16 17.14   Downloaded serde_core v1.0.228
+#16 17.18   Downloaded num-traits v0.2.19
+#16 17.38   Downloaded quinn v0.11.9
+#16 17.39   Downloaded proc-macro2 v1.0.106
+#16 17.41   Downloaded rustls-webpki v0.103.10
+#16 17.42   Downloaded prometheus v0.14.0
+#16 17.51   Downloaded serde v1.0.228
+#16 17.58   Downloaded memchr v2.8.0
+#16 17.67   Downloaded rand v0.9.2
+#16 17.69   Downloaded mio v1.1.1
+#16 17.86   Downloaded zerovec v0.11.5
+#16 18.24   Downloaded serde_json v1.0.149
+#16 18.28   Downloaded pulldown-cmark v0.13.3
+#16 18.40   Downloaded regex v1.12.3
+#16 18.51   Downloaded reqwest v0.13.2
+#16 18.54   Downloaded zentinel-agent-protocol v0.5.13
+#16 18.85   Downloaded protobuf v3.7.2
+#16 19.07   Downloaded quinn-proto v0.11.14
+#16 19.23   Downloaded sysinfo v0.38.4
+#16 19.32   Downloaded zerocopy v0.8.47
+#16 19.56   Downloaded syn v2.0.117
+#16 20.00   Downloaded regex-syntax v0.8.10
+#16 20.09   Downloaded rustls v0.23.37
+#16 20.11   Downloaded rustix v1.1.4
+#16 20.63   Downloaded tracing v0.1.44
+#16 20.91   Downloaded regex-automata v0.4.14
+#16 22.02   Downloaded petgraph v0.8.3
+#16 22.22   Downloaded tokio v1.50.0
+#16 22.36   Downloaded aws-lc-sys v0.39.0
+#16 23.32   Downloaded ring v0.17.14
+#16 23.51    Compiling proc-macro2 v1.0.106
+#16 23.51    Compiling unicode-ident v1.0.24
+#16 23.51    Compiling quote v1.0.45
+#16 23.51    Compiling libc v0.2.183
+#16 23.58    Compiling serde_core v1.0.228
+#16 23.75    Compiling cfg-if v1.0.4
+#16 23.81    Compiling serde v1.0.228
+#16 24.54    Compiling syn v2.0.117
+#16 24.78    Compiling pin-project-lite v0.2.17
+#16 24.85    Compiling once_cell v1.21.4
+#16 24.89    Compiling memchr v2.8.0
+#16 25.02    Compiling parking_lot_core v0.9.12
+#16 25.19    Compiling bytes v1.11.1
+#16 26.02    Compiling scopeguard v1.2.0
+#16 26.04    Compiling futures-core v0.3.32
+#16 26.07    Compiling lock_api v0.4.14
+#16 26.14    Compiling jobserver v0.1.34
+#16 26.14    Compiling find-msvc-tools v0.1.9
+#16 26.25    Compiling shlex v1.3.0
+#16 26.29    Compiling itoa v1.0.18
+#16 26.39    Compiling cc v1.2.57
+#16 26.43    Compiling tracing-core v0.1.36
+#16 26.47    Compiling errno v0.3.14
+#16 26.58    Compiling signal-hook-registry v1.4.8
+#16 27.02    Compiling socket2 v0.6.3
+#16 27.42    Compiling mio v1.1.1
+#16 27.71    Compiling futures-sink v0.3.32
+#16 27.78    Compiling synstructure v0.13.2
+#16 27.92    Compiling cmake v0.1.57
+#16 28.10    Compiling http v1.4.0
+#16 28.22    Compiling dunce v1.0.5
+#16 28.23    Compiling fs_extra v1.3.0
+#16 28.27    Compiling stable_deref_trait v1.2.1
+#16 28.32    Compiling slab v0.4.12
+#16 28.47    Compiling anyhow v1.0.102
+#16 28.49    Compiling aws-lc-sys v0.39.0
+#16 28.70    Compiling futures-channel v0.3.32
+#16 28.90    Compiling hashbrown v0.16.1
+#16 29.25    Compiling serde_derive v1.0.228
+#16 29.56    Compiling tokio-macros v2.6.1
+#16 29.57    Compiling tracing-attributes v0.1.31
+#16 30.19    Compiling zerofrom-derive v0.1.6
+#16 30.41    Compiling yoke-derive v0.8.1
+#16 31.09    Compiling tracing v0.1.44
+#16 32.06    Compiling futures-macro v0.3.32
+#16 32.25    Compiling zerofrom v0.1.6
+#16 32.36    Compiling yoke v0.8.1
+#16 32.51    Compiling zerovec-derive v0.11.2
+#16 33.18    Compiling equivalent v1.0.2
+#16 33.22    Compiling futures-io v0.3.32
+#16 33.34    Compiling futures-task v0.3.32
+#16 33.45    Compiling futures-util v0.3.32
+#16 33.70    Compiling smallvec v1.15.1
+#16 33.79    Compiling zerovec v0.11.5
+#16 34.16    Compiling parking_lot v0.12.5
+#16 34.31    Compiling indexmap v2.13.0
+#16 35.02    Compiling tokio v1.50.0
+#16 35.05    Compiling displaydoc v0.2.5
+#16 35.83    Compiling http-body v1.0.1
+#16 35.91    Compiling ring v0.17.14
+#16 36.01    Compiling getrandom v0.4.2
+#16 36.18    Compiling log v0.4.29
+#16 36.35    Compiling aws-lc-rs v1.16.2
+#16 36.49    Compiling zeroize v1.8.2
+#16 36.70    Compiling fnv v1.0.7
+#16 36.76    Compiling tower-service v0.3.3
+#16 36.81    Compiling either v1.15.0
+#16 36.95    Compiling percent-encoding v2.3.2
+#16 37.15    Compiling itertools v0.14.0
+#16 38.64    Compiling rustls-pki-types v1.14.0
+#16 39.37    Compiling tokio-util v0.7.18
+#16 40.61    Compiling getrandom v0.2.17
+#16 40.74    Compiling httparse v1.10.1
+#16 40.98    Compiling untrusted v0.9.0
+#16 41.05    Compiling typenum v1.19.0
+#16 41.30    Compiling fastrand v2.3.0
+#16 41.46    Compiling version_check v0.9.5
+#16 41.74    Compiling generic-array v0.14.7
+#16 41.99    Compiling prost-derive v0.14.3
+#16 43.96    Compiling tinystr v0.8.2
+#16 44.09    Compiling bitflags v2.11.0
+#16 44.23    Compiling litemap v0.8.1
+#16 44.38    Compiling rustls v0.23.37
+#16 44.53    Compiling atomic-waker v1.1.2
+#16 44.59    Compiling try-lock v0.2.5
+#16 44.64    Compiling writeable v0.6.2
+#16 44.80    Compiling icu_locale_core v2.1.1
+#16 47.06    Compiling want v0.3.1
+#16 47.15    Compiling h2 v0.4.13
+#16 49.28    Compiling zerotrie v0.2.3
+#16 49.63    Compiling potential_utf v0.1.4
+#16 49.72    Compiling sync_wrapper v1.0.2
+#16 49.81    Compiling icu_normalizer_data v2.1.1
+#16 49.94    Compiling pin-utils v0.1.0
+#16 49.99    Compiling subtle v2.6.1
+#16 50.09    Compiling heck v0.5.0
+#16 50.28    Compiling tower-layer v0.3.3
+#16 50.51    Compiling icu_properties_data v2.1.2
+#16 50.81    Compiling base64 v0.22.1
+#16 51.29    Compiling zmij v1.0.21
+#16 51.53    Compiling httpdate v1.0.3
+#16 51.96    Compiling rustix v1.1.4
+#16 52.22    Compiling prettyplease v0.2.37
+#16 52.40    Compiling pulldown-cmark v0.13.3
+#16 52.57    Compiling hyper v1.8.1
+#16 52.69    Compiling icu_collections v2.1.1
+#16 53.34    Compiling icu_provider v2.1.1
+#16 54.29    Compiling aho-corasick v1.1.4
+#16 54.82    Compiling foldhash v0.1.5
+#16 55.61    Compiling linux-raw-sys v0.12.1
+#16 55.96    Compiling regex-syntax v0.8.10
+#16 58.71    Compiling ipnet v2.12.0
+#16 60.03    Compiling thiserror v1.0.69
+#16 60.26    Compiling serde_json v1.0.149
+#16 60.43    Compiling unicase v2.9.0
+#16 62.17    Compiling regex-automata v0.4.14
+#16 62.93    Compiling hyper-util v0.1.20
+#16 65.59    Compiling hashbrown v0.15.5
+#16 66.02    Compiling prost v0.14.3
+#16 66.52    Compiling tower v0.5.3
+#16 67.21    Compiling http-body-util v0.1.3
+#16 67.49    Compiling thiserror-impl v1.0.69
+#16 67.89    Compiling lazy_static v1.5.0
+#16 67.93    Compiling fixedbitset v0.5.7
+#16 68.17    Compiling openssl-probe v0.2.1
+#16 68.40    Compiling thiserror v2.0.18
+#16 68.85    Compiling autocfg v1.5.0
+#16 69.37    Compiling num-traits v0.2.19
+#16 69.47    Compiling tempfile v3.27.0
+#16 69.68    Compiling rustls-native-certs v0.8.3
+#16 69.84    Compiling petgraph v0.8.3
+#16 71.27    Compiling prost-types v0.14.3
+#16 72.30    Compiling icu_properties v2.1.2
+#16 73.19    Compiling icu_normalizer v2.1.1
+#16 74.04    Compiling regex v1.12.3
+#16 74.39    Compiling pulldown-cmark-to-cmark v22.0.0
+#16 74.43    Compiling block-buffer v0.10.4
+#16 74.54    Compiling crypto-common v0.1.7
+#16 74.67    Compiling thiserror-impl v2.0.18
+#16 74.69    Compiling siphasher v1.0.2
+#16 74.92    Compiling protobuf v3.7.2
+#16 75.34    Compiling mime v0.3.17
+#16 76.06    Compiling utf8parse v0.2.2
+#16 76.66    Compiling multimap v0.10.1
+#16 76.83    Compiling anstyle-parse v1.0.0
+#16 76.96    Compiling prost-build v0.14.3
+#16 77.14    Compiling axum-core v0.5.6
+#16 79.02    Compiling phf_shared v0.13.1
+#16 79.21    Compiling digest v0.10.7
+#16 79.40    Compiling idna_adapter v1.2.1
+#16 79.51    Compiling protobuf-support v3.7.2
+#16 80.17    Compiling sharded-slab v0.1.7
+#16 80.95    Compiling matchers v0.2.0
+#16 80.95    Compiling tonic-build v0.14.5
+#16 81.06    Compiling tracing-log v0.2.0
+#16 81.39    Compiling tracing-serde v0.2.0
+#16 81.48    Compiling pin-project-internal v1.1.11
+#16 81.63    Compiling thread_local v1.1.9
+#16 81.91    Compiling is_terminal_polyfill v1.70.2
+#16 82.01    Compiling crossbeam-utils v0.8.21
+#16 82.31    Compiling anstyle v1.0.14
+#16 82.52    Compiling anstyle-query v1.1.5
+#16 82.59    Compiling colorchoice v1.0.5
+#16 82.65    Compiling prometheus v0.14.0
+#16 82.85    Compiling utf8_iter v1.0.4
+#16 82.85    Compiling nu-ansi-term v0.50.3
+#16 82.97    Compiling matchit v0.8.4
+#16 83.35    Compiling axum v0.8.8
+#16 83.67    Compiling tracing-subscriber v0.3.23
+#16 83.78    Compiling idna v1.1.0
+#16 86.17    Compiling pin-project v1.1.11
+#16 86.23    Compiling anstream v1.0.0
+#16 86.84    Compiling tonic-prost-build v0.14.5
+#16 89.12    Compiling phf_generator v0.13.1
+#16 89.40    Compiling hyper-timeout v0.5.2
+#16 89.57    Compiling tokio-stream v0.1.18
+#16 90.00    Compiling form_urlencoded v1.2.2
+#16 90.21    Compiling async-trait v0.1.89
+#16 91.90    Compiling strsim v0.11.1
+#16 92.03    Compiling cpufeatures v0.2.17
+#16 92.11    Compiling clap_lex v1.1.0
+#16 92.48    Compiling iana-time-zone v0.1.65
+#16 92.83    Compiling iri-string v0.7.11
+#16 95.63    Compiling tower-http v0.6.8
+#16 96.53    Compiling chrono v0.4.44
+#16 100.5    Compiling clap_builder v4.6.0
+#16 102.5    Compiling url v2.5.8
+#16 105.1    Compiling phf_macros v0.13.1
+#16 106.0    Compiling uuid v1.22.0
+#16 106.7    Compiling zentinel-agent-protocol v0.5.13
+#16 109.0    Compiling clap_derive v4.6.0
+#16 111.5    Compiling futures-executor v0.3.32
+#16 112.1    Compiling sysinfo v0.38.4
+#16 113.4    Compiling hashbrown v0.14.5
+#16 114.0    Compiling utf8-width v0.1.8
+#16 114.1    Compiling html-escape v0.2.13
+#16 115.0    Compiling dashmap v6.1.0
+#16 115.6    Compiling zentinel-common v0.5.13
+#16 120.8    Compiling futures v0.3.32
+#16 120.9    Compiling clap v4.6.0
+#16 121.1    Compiling phf v0.13.1
+#16 121.4    Compiling sha2 v0.10.9
+#16 123.0    Compiling sha1 v0.10.6
+#16 123.3    Compiling md-5 v0.10.6
+#16 123.4    Compiling serde_bytes v0.11.19
+#16 123.7    Compiling hex v0.4.3
+#16 123.9    Compiling ipnetwork v0.21.1
+#16 124.3    Compiling glob v0.3.3
+#16 124.9    Compiling zentinel-modsec v0.1.2 (/app/zentinel-modsec/zentinel-modsec-main)
+#16 125.0 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 125.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:18:24
+#16 125.0    |
+#16 125.0 18 |         crate::parser::SetVarOperation::Increment(delta) => {
+#16 125.0    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 125.0    |
+#16 125.0 help: consider importing this enum
+#16 125.0    |
+#16 125.0 3  + use crate::actions::SetVarOperation;
+#16 125.0    |
+#16 125.0 help: if you import `SetVarOperation`, refer to it directly
+#16 125.0    |
+#16 125.0 18 -         crate::parser::SetVarOperation::Increment(delta) => {
+#16 125.0 18 +         SetVarOperation::Increment(delta) => {
+#16 125.0    |
+#16 125.0 
+#16 125.0 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 125.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:21:24
+#16 125.0    |
+#16 125.0 21 |         crate::parser::SetVarOperation::Decrement(delta) => {
+#16 125.0    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 125.0    |
+#16 125.0 help: consider importing this enum
+#16 125.0    |
+#16 125.0 3  + use crate::actions::SetVarOperation;
+#16 125.0    |
+#16 125.0 help: if you import `SetVarOperation`, refer to it directly
+#16 125.0    |
+#16 125.0 21 -         crate::parser::SetVarOperation::Decrement(delta) => {
+#16 125.0 21 +         SetVarOperation::Decrement(delta) => {
+#16 125.0    |
+#16 125.0 
+#16 125.0 error[E0433]: failed to resolve: could not find `SetVarOperation` in `parser`
+#16 125.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:24:24
+#16 125.0    |
+#16 125.0 24 |         crate::parser::SetVarOperation::Delete => {
+#16 125.0    |                        ^^^^^^^^^^^^^^^ could not find `SetVarOperation` in `parser`
+#16 125.0    |
+#16 125.0 help: consider importing this enum
+#16 125.0    |
+#16 125.0 3  + use crate::actions::SetVarOperation;
+#16 125.0    |
+#16 125.0 help: if you import `SetVarOperation`, refer to it directly
+#16 125.0    |
+#16 125.0 24 -         crate::parser::SetVarOperation::Delete => {
+#16 125.0 24 +         SetVarOperation::Delete => {
+#16 125.0    |
+#16 125.0 
+#16 125.0 warning: unused imports: `Error` and `Result`
+#16 125.0  --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/comparison.rs:4:20
+#16 125.0   |
+#16 125.0 4 | use crate::error::{Error, Result};
+#16 125.0   |                    ^^^^^  ^^^^^^
+#16 125.0   |
+#16 125.0   = note: `#[warn(unused_imports)]` on by default
+#16 125.0 
+#16 125.0 warning: unused imports: `SetVarOp` and `execute_actions`
+#16 125.0   --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/transaction.rs:10:22
+#16 125.0    |
+#16 125.0 10 | use crate::actions::{execute_actions, DisruptiveOutcome, FlowOutcome, SetVarOp};
+#16 125.0    |                      ^^^^^^^^^^^^^^^                                  ^^^^^^^^
+#16 125.0 
+#16 125.5 warning: unreachable pattern
+#16 125.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:79:9
+#16 125.5    |
+#16 125.5 79 |         _ => Err(Error::UnknownOperator { name: format!("{:?}", name) }),
+#16 125.5    |         ^ no value can reach this
+#16 125.5    |
+#16 125.5 note: multiple earlier patterns match some of the same values
+#16 125.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/operators/mod.rs:79:9
+#16 125.5    |
+#16 125.5 41 |         OperatorName::Rx => Ok(Arc::new(RxOperator::new(argument)?)),
+#16 125.5    |         ---------------- matches some of the same values
+#16 125.5 42 |         OperatorName::Pm | OperatorName::Pmf => Ok(Arc::new(PmOperator::new(argument)?)),
+#16 125.5    |         ------------------------------------ matches some of the same values
+#16 125.5 43 |         OperatorName::PmFromFile => Ok(Arc::new(PmOperator::from_file(argument, base_path)?)),
+#16 125.5    |         ------------------------ matches some of the same values
+#16 125.5 44 |         OperatorName::Contains => Ok(Arc::new(ContainsOperator::new(argument))),
+#16 125.5    |         ---------------------- matches some of the same values
+#16 125.5 ...
+#16 125.5 79 |         _ => Err(Error::UnknownOperator { name: format!("{:?}", name) }),
+#16 125.5    |         ^ ...and 25 other patterns collectively make this unreachable
+#16 125.5    = note: `#[warn(unreachable_patterns)]` on by default
+#16 125.5 
+#16 125.5 warning: value assigned to `result` is never read
+#16 125.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/actions/data.rs:42:13
+#16 125.5    |
+#16 125.5 42 |     let mut result = value.to_string();
+#16 125.5    |             ^^^^^^
+#16 125.5    |
+#16 125.5    = help: maybe it is overwritten before being read?
+#16 125.5    = note: `#[warn(unused_assignments)]` on by default
+#16 125.5 
+#16 125.5 warning: unused variable: `state`
+#16 125.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/chain.rs:80:13
+#16 125.5    |
+#16 125.5 80 |     let mut state = ChainState::new();
+#16 125.5    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_state`
+#16 125.5    |
+#16 125.5    = note: `#[warn(unused_variables)]` on by default
+#16 125.5 
+#16 125.5 warning: variable does not need to be mutable
+#16 125.5   --> /app/zentinel-modsec/zentinel-modsec-main/src/engine/chain.rs:80:9
+#16 125.5    |
+#16 125.5 80 |     let mut state = ChainState::new();
+#16 125.5    |         ----^^^^^
+#16 125.5    |         |
+#16 125.5    |         help: remove this `mut`
+#16 125.5    |
+#16 125.5    = note: `#[warn(unused_mut)]` on by default
+#16 125.5 
+#16 125.6 For more information about this error, try `rustc --explain E0433`.
+#16 125.6 warning: `zentinel-modsec` (lib) generated 6 warnings
+#16 125.6 error: could not compile `zentinel-modsec` (lib) due to 3 previous errors; 6 warnings emitted
+#16 125.6 warning: build failed, waiting for other jobs to finish...
+#16 ERROR: process "/bin/sh -c cargo build --release" did not complete successfully: exit code: 101
+------
+ > [zentinelsec builder 8/8] RUN cargo build --release:
+125.5    |         ----^^^^^
+125.5    |         |
+125.5    |         help: remove this `mut`
+125.5    |
+125.5    = note: `#[warn(unused_mut)]` on by default
+125.5 
+125.6 For more information about this error, try `rustc --explain E0433`.
+125.6 warning: `zentinel-modsec` (lib) generated 6 warnings
+125.6 error: could not compile `zentinel-modsec` (lib) due to 3 previous errors; 6 warnings emitted
+125.6 warning: build failed, waiting for other jobs to finish...
+------
+failed to solve: process "/bin/sh -c cargo build --release" did not complete successfully: exit code: 101
