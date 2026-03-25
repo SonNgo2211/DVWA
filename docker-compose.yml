@@ -73,8 +73,8 @@ services:
   
   zentinelsec:
     container_name: zentinelsec
-    image: whackers/zentinelsec-agent:v0.3.0-local
-    user: "65532:65532"
+    image: whackers/zentinelsec-agent:debug
+    user: "0:0"
     ports:
       - "9095:9095"
     volumes:
