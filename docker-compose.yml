@@ -49,12 +49,8 @@ services:
     networks: [dvwa-net]
     depends_on:
       - dvwa-web
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9090/health"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
+      - waf
+      - zentinelsec
     restart: unless-stopped
   
   waf:
@@ -73,7 +69,7 @@ services:
   
   zentinelsec:
     container_name: zentinelsec
-    image: whackers/zentinelsec-agent:debug
+    image: whackers/zentinelsec-agent:v0.3.0-local
     user: "0:0"
     ports:
       - "9095:9095"
