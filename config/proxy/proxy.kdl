@@ -106,5 +106,6 @@ agents {
         events "request_headers" "request_body"
         timeout-ms 2000
         failure-mode "open"
+        request-body-mode "buffer"
     }
 }

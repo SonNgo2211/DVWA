@@ -69,7 +69,9 @@ services:
   
   zentinelsec:
     container_name: zentinelsec
-    image: whackers/zentinelsec-agent:v0.3.0-local
+    build:
+      context: ../zentinel-agent-zentinelsec
+      dockerfile: Dockerfile
     user: "0:0"
     ports:
       - "9095:9095"
