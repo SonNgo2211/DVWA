@@ -69,9 +69,7 @@ services:
   
   zentinelsec:
     container_name: zentinelsec
-    build:
-      context: ../zentinel-agent-zentinelsec
-      dockerfile: Dockerfile
+    image: whackers/zentinelsec-agent:v0.3.0-local
     user: "0:0"
     ports:
       - "9095:9095"
@@ -87,6 +85,28 @@ services:
       RUST_LOG: "debug"
     networks: [dvwa-net]
     restart: unless-stopped  
+
+
+  crs-nginx:
+    image: owasp/modsecurity-crs:nginx
+    container_name: crs-nginx
+    ports:
+      - "80:8080"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    environment:
+      SERVERNAME: 10.1.38.190
+      PARANOIA: 1
+      BLOCKING_PARANOIA: 1
+      ANOMALY_INBOUND: 5
+      ANOMALY_OUTBOUND: 4
+      MODSEC_AUDIT_LOG_TYPE: Concurrent
+      MODSEC_AUDIT_STORAGE_DIR: "/var/log/modsecurity/audit"
+      MODSEC_AUDIT_LOG: /etc/modsecurity.d/modsec_audit.log
+      MODSEC_AUDIT_LOG_PARTS: ABCFHZ
+      
+    networks: [dvwa-net]
+    restart: unless-stopped
 
 
 volumes:
